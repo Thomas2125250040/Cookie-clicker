@@ -31,11 +31,18 @@ public class CookieClicker {
 	Font font1 = new Font("Comic Sans MS", Font.PLAIN, 32);
 	Font font2 = new Font("Comic Sans MS", Font.PLAIN, 15);
 	
+	// Cursor Button
+	JPanel cursorPanel;
+	JButton cursor, grandpa, button3, button4;
+	
+	// Cookie Handler
+	CookieHandler cHandler = new CookieHandler();
 	
 	public CookieClicker() {
 		createWindow();
 		createCookie();
 		createCookieCounter();
+		createCookieCursor();
 		
 		window.setVisible(true);
 	}
@@ -61,7 +68,8 @@ public class CookieClicker {
 		cookie.setBackground(Color.black);
 		cookie.setFocusPainted(false);
 		cookie.setBorder(null);
-		cookie.addActionListener(new CookieHandler());
+		cookie.addActionListener(cHandler);
+		cookie.setActionCommand("Click");
 	
 		window.add(cookiePanel);
 		cookiePanel.add(cookie);
@@ -88,6 +96,36 @@ public class CookieClicker {
 		window.add(counterPanel);
 		
 	}
+	
+	public void createCookieCursor() {
+		
+		cursorPanel = new JPanel();
+		cursorPanel.setBounds(400, 220, 250, 200);
+		cursorPanel.setLayout(new GridLayout(4,1));
+		
+		cursor = new JButton("Cursor");
+		cursor.setFocusPainted(false);
+		cursor.setFont(font1);
+		
+		grandpa = new JButton("Grandpa");
+		grandpa.setFocusPainted(false);
+		grandpa.setFont(font1);
+		
+		button3 = new JButton("?");
+		button3.setFocusPainted(false);
+		button3.setFont(font1);
+		
+		button4 = new JButton("?");
+		button4.setFocusPainted(false);
+		button4.setFont(font1);
+		
+		cursorPanel.add(cursor);
+		cursorPanel.add(grandpa);
+		cursorPanel.add(button3);
+		cursorPanel.add(button4);
+		
+		window.add(cursorPanel);
+	}
 
 	public static void main(String[] args) {
 		
@@ -98,8 +136,16 @@ public class CookieClicker {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			counter++;
-			counterLabel.setText(counter + " cookies");
+			
+			String command = e.getActionCommand();
+			switch(command) {
+			case "Click":
+				counter++;
+				counterLabel.setText(counter + " cookies");
+				break;
+				
+			}
+			
 		}
 		
 	}
